@@ -11,12 +11,11 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
+        
       - name: Install DigitalOcean CLI (doctl)
         run: |
-          curl -sL https://github.com/digitalocean/doctl/releases/latest/download/doctl-$(uname -s)-$(uname -m) \
-            -o doctl
-          chmod +x doctl
-          sudo mv doctl /usr/local/bin
+          curl -sL https://github.com/digitalocean/doctl/releases/latest/download/doctl-linux-amd64.tar.gz | tar -xz
+          sudo mv doctl /usr/local/bin/
 
       - name: Login ke DigitalOcean CLI
         run: doctl auth init --access-token ${{ secrets.DO_ACCESS_TOKEN }}
