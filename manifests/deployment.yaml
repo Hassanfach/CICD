@@ -14,12 +14,11 @@ spec:
     spec:
       containers:
         - name: my-node-app
-          image: your-dockerhub-username/my-node-app:latest
+          image: registry.digitalocean.com/starterkit-reg-2/deployment:v1
           ports:
             - containerPort: 3000
-          env:
-            - name: PORT
-              value: "3000"
+      imagePullSecrets:
+        - name: regcred
 ---
 apiVersion: v1
 kind: Service
@@ -32,4 +31,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 3000
-  type: LoadBalancer
+  type: ClusterIP
