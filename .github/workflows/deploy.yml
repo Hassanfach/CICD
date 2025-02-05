@@ -36,6 +36,6 @@ jobs:
           mkdir -p /home/runner/.kube
           sudo snap connect doctl:kube-config
           doctl kubernetes cluster kubeconfig save starterkit-cluster-2
-          
+
       - name: Deploy ke Kubernetes
         run: kubectl apply -f manifests/
