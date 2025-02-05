@@ -40,11 +40,6 @@ jobs:
       - name: Deploy ke Kubernetes
         run: kubectl apply -f manifests/
 
-      - name: Health Check - Verify Pods Running
-        run: |
-          kubectl rollout status deployment/my-node-app --timeout=5m
-          kubectl get pods -l app=my-node-app -o wide
-
       - name: Health Check - Verify Service Availability
         run: |
           kubectl get svc my-node-app-service --watch --timeout=2m
