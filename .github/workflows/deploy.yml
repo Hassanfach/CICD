@@ -11,6 +11,15 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
+      - name: Install DigitalOcean CLI (doctl)
+        run: |
+          curl -sL https://github.com/digitalocean/doctl/releases/latest/download/doctl-$(uname -s)-$(uname -m) \
+            -o doctl
+          chmod +x doctl
+          sudo mv doctl /usr/local/bin
+
+      - name: Login ke DigitalOcean CLI
+        run: doctl auth init --access-token ${{ secrets.DO_ACCESS_TOKEN }}
 
       - name: Login ke DigitalOcean Registry
         run: echo "${{ secrets.DOCR_ACCESS_TOKEN }}" | docker login registry.digitalocean.com -u ${{ secrets.DOCR_USERNAME }} --password-stdin
