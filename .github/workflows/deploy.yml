@@ -17,14 +17,14 @@ jobs:
 
       - name: Setup DigitalOcean API Token
         run: |
-          if [[ -z "${{ secrets.DO_ACCESS_TOKEN }}" ]]; then
-            echo "ERROR: DO_ACCESS_TOKEN is empty. Please set it in GitHub Secrets."
+          if [[ -z "${{ secrets.DOCR_ACCESS_TOKEN }}" ]]; then
+            echo "ERROR: DOCR_ACCESS_TOKEN is empty. Please set it in GitHub Secrets."
             exit 1
           fi
-          doctl auth init --access-token ${{ secrets.DO_ACCESS_TOKEN }}
+          doctl auth init --access-token ${{ secrets.DOCR_ACCESS_TOKEN }}
 
       - name: Login ke DigitalOcean Registry (DOCR)
-        run: echo "${{ secrets.DO_ACCESS_TOKEN }}" | docker login registry.digitalocean.com -u ${{ secrets.DO_USERNAME }} --password-stdin
+        run: echo "${{ secrets.DOCR_ACCESS_TOKEN }}" | docker login registry.digitalocean.com -u ${{ secrets.DOCR_USERNAME }} --password-stdin
 
       - name: Build dan Push Image ke DOCR
         run: |
