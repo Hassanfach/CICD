@@ -32,7 +32,10 @@ jobs:
           docker push registry.digitalocean.com/starterkit-reg-2/deployment:v1
 
       - name: Konfigurasi Kubernetes
-        run: doctl kubernetes cluster kubeconfig save starterkit-cluster-2
-
+        run: |
+          mkdir -p /home/runner/.kube
+          sudo snap connect doctl:kube-config
+          doctl kubernetes cluster kubeconfig save starterkit-cluster-2
+          
       - name: Deploy ke Kubernetes
         run: kubectl apply -f manifests/
