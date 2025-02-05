@@ -39,3 +39,13 @@ jobs:
 
       - name: Deploy ke Kubernetes
         run: kubectl apply -f manifests/
+
+      - name: Health Check - Verify Pods Running
+        run: |
+          kubectl rollout status deployment/starterkit-deployment --timeout=5m
+          kubectl get pods -l app=starterkit-deployment -o wide
+
+      - name: Health Check - Verify Service Availability
+        run: |
+          kubectl get svc starterkit-service --watch --timeout=2m
+          kubectl get endpoints starterkit-service
