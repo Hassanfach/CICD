@@ -17,7 +17,7 @@ jobs:
 
       - name: Build dan Push Image ke DOCR
         run: |
-          docker build -t registry.digitalocean.com/starterkit-reg-2/deployment:v1
+          docker build -t registry.digitalocean.com/starterkit-reg-2/deployment:v1 .
           docker push registry.digitalocean.com/starterkit-reg-2/deployment:v1
 
       - name: Konfigurasi Kubernetes
