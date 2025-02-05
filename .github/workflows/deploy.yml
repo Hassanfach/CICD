@@ -17,7 +17,11 @@ jobs:
           sudo snap install doctl
           
       - name: Setup DigitalOcean API Token
-        run: echo "${{ secrets.DO_ACCESS_TOKEN }}" | doctl auth init --access-token ${{ secrets.DO_ACCESS_TOKEN }}
+          if [[ -z "${{ secrets.DO_ACCESS_TOKEN }}" ]]; then
+            echo "ERROR: DO_ACCESS_TOKEN is empty. Please set it in GitHub Secrets."
+            exit 1
+          fi
+          doctl auth init --access-token ${{ secrets.DO_ACCESS_TOKEN }}
       
       - name: Login ke DigitalOcean Registry
         run: echo "${{ secrets.DOCR_ACCESS_TOKEN }}" | docker login registry.digitalocean.com -u ${{ secrets.DOCR_USERNAME }} --password-stdin
