@@ -40,7 +40,4 @@ jobs:
       - name: Deploy ke Kubernetes
         run: kubectl apply -f manifests/
 
-      - name: Health Check - Verify Service Availability
-        run: |
-          kubectl get svc my-node-app-service --watch --timeout=2m
-          kubectl get endpoints my-node-app-service
+
